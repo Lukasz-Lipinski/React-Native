@@ -147,5 +147,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
-  homeIcon: {},
 });
