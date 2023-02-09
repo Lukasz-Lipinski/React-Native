@@ -85,7 +85,7 @@ export const TopNav: FC = () => {
             alignItems: 'center',
           }}
         >
-          {/* <View
+          <View
             style={{
               position: 'absolute',
               top: -10,
@@ -99,7 +99,7 @@ export const TopNav: FC = () => {
               padding={8}
               isAvatar
             />
-          </View> */}
+          </View>
         </View>
         <View
           style={{
