@@ -66,6 +66,11 @@ export const UserWallet: FC<
       amount: currentAmount,
       currency: currentCurrency,
     });
+    setToast({
+      isShowed: true,
+      msg: 'Money assigned',
+      type: 'INFO',
+    });
   };
 
   return (

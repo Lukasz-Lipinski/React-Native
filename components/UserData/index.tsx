@@ -10,13 +10,19 @@ import {
   useContext,
   useMemo,
   useState,
+  Dispatch,
 } from 'react';
 import { FormContext } from '../../ctx';
 import { AppColors } from '../../styles';
+import { ToastDetails } from '../Toast';
 
-interface UserDataProps {}
+interface UserDataProps {
+  setToast: Dispatch<ToastDetails>;
+}
 
-export const UserData: FC<UserDataProps> = () => {
+export const UserData: FC<UserDataProps> = ({
+  setToast,
+}) => {
   const { user, setUser } =
     useContext(FormContext);
   const [accountNo, setAccountNo] = useState<{
@@ -48,6 +54,11 @@ export const UserData: FC<UserDataProps> = () => {
     setUser({
       ...user,
       accountNo: accountNo.no,
+    });
+    setToast({
+      msg: 'Account added successfully',
+      isShowed: true,
+      type: 'INFO',
     });
   };
 

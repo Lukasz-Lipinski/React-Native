@@ -79,10 +79,15 @@ export const signin = async (
 
   const data = await res.json();
 
-  console.log(data);
+  if ('error' in data) {
+    return {
+      status: data.error.code,
+      data,
+    };
+  }
 
   return {
-    status: res.status,
+    status: 200,
     data,
   };
 };

@@ -8,13 +8,21 @@ import React, {
   FC,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 import { FormContext } from '../ctx';
 import { Wallet } from '../components/Wallet';
 import { AppColors } from '../styles';
+import { ToastDetails } from '../components/Toast';
 
 export const WalletsScreen: FC = () => {
   const { user } = useContext(FormContext);
+  const [toast, setToast] =
+    useState<ToastDetails>({
+      isShowed: false,
+      msg: '',
+      type: 'INFO',
+    });
   const { wallets } = user;
 
   const header = useMemo(

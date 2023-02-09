@@ -8,6 +8,10 @@ import axios from 'axios';
 import { Form } from '../components/Form';
 import { Layout } from '../components/Layout';
 import { FormContext } from '../ctx';
+import {
+  Toast,
+  ToastDetails,
+} from '../components/Toast';
 
 export interface Response {
   motd: {
@@ -30,6 +34,12 @@ export interface Response {
 
 export const ExchangeScreen: FC = () => {
   const { budget } = useContext(FormContext);
+  const [toast, setToast] =
+    useState<ToastDetails>({
+      isShowed: false,
+      msg: '',
+      type: 'INFO',
+    });
 
   const exchangeMoney = async (
     currency: string,
@@ -46,8 +56,17 @@ export const ExchangeScreen: FC = () => {
           paddingTop: 28,
         }}
       >
-        <Form onExchange={exchangeMoney} />
+        <Form
+          onExchange={exchangeMoney}
+          setToast={setToast}
+        />
       </View>
+      {toast.isShowed && (
+        <Toast
+          {...toast}
+          hideToast={setToast}
+        />
+      )}
     </Layout>
   );
 };

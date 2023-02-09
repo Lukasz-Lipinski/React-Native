@@ -91,18 +91,21 @@ export const SignInForm = () => {
     res.status !== 200 &&
       setToast({
         isShowed: true,
-        msg: res.data || 'Invalid data',
+        msg:
+          res.data.error.message ||
+          'Invalid data',
         type: 'ERROR',
       });
 
-    res.status === 200 && console.log(res);
-    setUser({
-      email: res.data.email,
-      isLogged: true,
-      idToken: res.data.idToken,
-      accountNo: 0,
-      wallets: [],
-    });
+    res.status === 200 &&
+      setUser({
+        email: res.data.email,
+        isLogged: true,
+        idToken: res.data.idToken,
+        accountNo: 0,
+        wallets: [],
+      });
+
     res.status === 200 &&
       navigation.navigate('Account');
   };
@@ -188,7 +191,8 @@ export const SignInForm = () => {
       </ScrollView>
       {toast.isShowed && (
         <Toast
-          {...toast}
+          msg={toast.msg}
+          type={toast.type}
           hideToast={setToast}
         />
       )}

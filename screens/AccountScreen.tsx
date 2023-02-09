@@ -19,6 +19,10 @@ import { useNavigation } from '@react-navigation/native';
 import { deleteAccount } from '../services';
 import { UserWallet } from '../components/UserWallet';
 import { UserData } from '../components/UserData';
+import {
+  Toast,
+  ToastDetails,
+} from '../components/Toast';
 
 interface AccountModalProps {
   isModal: boolean;
@@ -80,6 +84,12 @@ export const AccountScreen: FC = () => {
   const onShowModal = () => {
     setIsModal(true);
   };
+  const [toast, setToast] =
+    useState<ToastDetails>({
+      isShowed: false,
+      msg: '',
+      type: 'INFO',
+    });
 
   const onDelete = async () => {
     setUser({
@@ -99,7 +109,7 @@ export const AccountScreen: FC = () => {
         contentContainerStyle={styles.container}
       >
         <UserWallet />
-        <UserData />
+        <UserData setToast={setToast} />
         <View style={styles.btnContainer}>
           <Btn
             label='Delete account'
@@ -114,6 +124,12 @@ export const AccountScreen: FC = () => {
         onDelete={onDelete}
         setIsModal={setIsModal}
       />
+      {toast.isShowed && (
+        <Toast
+          {...toast}
+          hideToast={setToast}
+        />
+      )}
     </>
   );
 };

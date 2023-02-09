@@ -6,23 +6,29 @@ import {
   Button,
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { FC, useContext, useState } from 'react';
+import {
+  FC,
+  useContext,
+  useState,
+  Dispatch,
+} from 'react';
 
-import { Toast } from '../Toast';
 import { FormContext } from '../../ctx';
 import { AppColors } from '../../styles';
-import { Btn } from '../Btn';
 import { checkIsNumber } from '../../services';
+import { ToastDetails } from '../Toast';
 
 interface FormProps {
   onExchange: (
     currency: string,
     amount: number
   ) => void;
+  setToast: Dispatch<ToastDetails>;
 }
 
 export const Form: FC<FormProps> = ({
   onExchange,
+  setToast,
 }) => {
   const currency: string[] = [
     'EUR',
@@ -38,15 +44,6 @@ export const Form: FC<FormProps> = ({
     useState<number>(0);
   const { budget, setWallet } =
     useContext(FormContext);
-  const [toast, setToast] = useState<{
-    type: 'ERROR' | 'INFO';
-    msg: string;
-    isShowed: boolean;
-  }>({
-    isShowed: false,
-    msg: '',
-    type: 'INFO',
-  });
 
   const onSetAmount = (value: string) => {
     checkIsNumber(value) &&
@@ -149,12 +146,6 @@ export const Form: FC<FormProps> = ({
           />
         </View>
       </View>
-      {toast.isShowed && (
-        <Toast
-          {...toast}
-          hideToast={setToast}
-        />
-      )}
     </>
   );
 };
